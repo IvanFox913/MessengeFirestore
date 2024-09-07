@@ -1,7 +1,7 @@
 package br.edu.ifsp.dmo.messengefirestore.data.model
 
-class Cellphone(val number: String) {
+class Cellphone(var number: String = "") {
 
-    lateinit var conversations: List<Conversation>;
+    //var conversations = List<Conversation>()
 
 }

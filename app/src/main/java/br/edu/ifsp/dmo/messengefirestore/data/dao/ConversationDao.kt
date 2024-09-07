@@ -4,7 +4,7 @@ import br.edu.ifsp.dmo.messengefirestore.data.model.Conversation
 
 interface ConversationDao {
 
-    fun insert(conversation: Conversation): Long
+    fun insert(conversation: Conversation): Boolean
 
     fun update(conversation: Conversation): Int
 
