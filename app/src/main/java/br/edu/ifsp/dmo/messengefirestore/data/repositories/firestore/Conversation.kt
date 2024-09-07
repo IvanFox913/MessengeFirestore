@@ -4,7 +4,7 @@ import br.edu.ifsp.dmo.messengefirestore.data.dao.ConversationDao
 import br.edu.ifsp.dmo.messengefirestore.data.model.Conversation
 
 class Conversation : ConversationDao{
-    override fun insert(conversation: Conversation): Long {
+    override fun insert(conversation: Conversation): Boolean {
         TODO("Not yet implemented")
     }
 

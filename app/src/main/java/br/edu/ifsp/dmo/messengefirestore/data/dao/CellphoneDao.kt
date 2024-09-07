@@ -5,7 +5,7 @@ import br.edu.ifsp.dmo.messengefirestore.data.model.Conversation
 
 interface CellphoneDao {
 
-    fun insert(cellphone: Cellphone): Long
+    fun insert(cellphone: Cellphone): Boolean
 
     fun selectAll(): List<Cellphone>
 
