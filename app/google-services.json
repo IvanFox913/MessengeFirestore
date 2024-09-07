@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "712928057311",
+    "project_id": "messengefirestore",
+    "storage_bucket": "messengefirestore.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712928057311:android:37243c02fc01a02456966a",
+        "android_client_info": {
+          "package_name": "br.edu.ifsp.dmo.messengefirestore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsxVULQD42cxbKDzit-CstUjtxXxydSd0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
