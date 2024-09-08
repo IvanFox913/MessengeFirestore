@@ -4,6 +4,7 @@ import br.edu.ifsp.dmo.messengefirestore.data.model.Conversation
 import br.edu.ifsp.dmo.messengefirestore.data.model.Message
 import br.edu.ifsp.dmo.messengefirestore.data.model.User
 import com.google.firebase.firestore.FirebaseFirestore
+import java.math.BigInteger
 
 class UserDao (private val firestore: FirebaseFirestore) {
 
@@ -13,12 +14,26 @@ class UserDao (private val firestore: FirebaseFirestore) {
             .addOnFailureListener { callback(false) }
     }
 
-    /*
-    fun getUserByNumber(): User {
-        
+    fun insertConversation(senderNumber: String, receiverNumber: String, callback: (Boolean) -> Unit) {
+
+        val smallerNumber = numberSortSmaller(senderNumber, receiverNumber)
+        val biggerNumber: String
+
+        if(smallerNumber == senderNumber){
+            biggerNumber = receiverNumber
+        } else {
+            biggerNumber = senderNumber
+        }
+
+        val conversation = Conversation(biggerNumber, smallerNumber)
+
+        firestore.collection("conversations").document(smallerNumber+biggerNumber).set(conversation)
+            .addOnSuccessListener { callback(true) }
+            .addOnFailureListener { callback(false) }
     }
 
-    fun insertConversation(userSmaller: User, userBigger: User) {
+    /*
+    fun getUserByNumber(): User {
         
     }
 
@@ -35,4 +50,12 @@ class UserDao (private val firestore: FirebaseFirestore) {
     }
 
      */
+
+    private fun numberSortSmaller(number: String, number2: String): String {
+        if(BigInteger(number) < BigInteger(number2)){
+            return number
+        } else {
+            return number2
+        }
+    }
 }

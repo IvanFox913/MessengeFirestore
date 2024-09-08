@@ -9,4 +9,8 @@ class UserRepo (private val userDao: UserDao){
         userDao.insertUser(user, callback)
     }
 
+    fun insertConversation(senderNumber : String, recieverNumber: String, callback: (Boolean) -> Unit) {
+        userDao.insertConversation(senderNumber, recieverNumber, callback)
+    }
+
 }
