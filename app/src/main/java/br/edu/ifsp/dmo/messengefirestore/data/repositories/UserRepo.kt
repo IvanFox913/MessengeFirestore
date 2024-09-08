@@ -13,4 +13,8 @@ class UserRepo (private val userDao: UserDao){
         userDao.insertConversation(senderNumber, recieverNumber, callback)
     }
 
+    fun findAllConversations(userNumber: String){
+        userDao.findAllConversations(userNumber)
+    }
+
 }

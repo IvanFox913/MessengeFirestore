@@ -1,5 +1,6 @@
 package br.edu.ifsp.dmo.messengefirestore.data.dao
 
+import android.util.Log
 import br.edu.ifsp.dmo.messengefirestore.data.model.Conversation
 import br.edu.ifsp.dmo.messengefirestore.data.model.Message
 import br.edu.ifsp.dmo.messengefirestore.data.model.User
@@ -35,16 +36,32 @@ class UserDao (private val firestore: FirebaseFirestore) {
 
     }
 
+    fun findAllConversations(userNumber: String): List<String> {
+
+        var conversations = ArrayList<String>()
+
+        firestore.collection("users")
+            .document(userNumber).collection("userConversations")
+            .addSnapshotListener { querySnapshot, exception ->
+                if (exception != null) {
+                    Log.e("firebase", "Listen fail.")
+                }
+                if (querySnapshot != null) {
+                    conversations = ArrayList(querySnapshot.toObjects(String::class.java))
+                } else {
+                    Log.e("firebase", "Empty conversations list.")
+                }
+            }
+
+        return conversations
+    }
+
     /*
     fun getUserByNumber(): User {
         
     }
 
     fun insertMessage(message: Message): Boolean {
-        
-    }
-
-    fun getAllConversationsByUser(user: User): List<Conversation> {
         
     }
 
