@@ -29,6 +29,7 @@ class ConversationAdapter(private val listener: ConversationItemClickListener): 
     }
     fun submitDataset(dataset: List<String>){
         this.dataset = dataset
+        notifyDataSetChanged()
     }
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val binding: ItemConversationBinding = ItemConversationBinding.bind(view)

@@ -36,24 +36,24 @@ class UserDao (private val firestore: FirebaseFirestore) {
 
     }
 
-    fun findAllConversations(userNumber: String): List<String> {
-
-        var conversations = ArrayList<String>()
+    fun findAllConversations(userNumber: String, callback: (List<String>) -> Unit) {
 
         firestore.collection("users")
             .document(userNumber).collection("userConversations")
             .addSnapshotListener { querySnapshot, exception ->
                 if (exception != null) {
                     Log.e("firebase", "Listen fail.")
+                    callback(emptyList())
+                    return@addSnapshotListener
                 }
                 if (querySnapshot != null) {
-                    conversations = ArrayList(querySnapshot.toObjects(String::class.java))
+                    val list = querySnapshot.documents.map { it.id }
+                    callback(list)
                 } else {
                     Log.e("firebase", "Empty conversations list.")
+                    callback(emptyList())
                 }
             }
-
-        return conversations
     }
 
     /*

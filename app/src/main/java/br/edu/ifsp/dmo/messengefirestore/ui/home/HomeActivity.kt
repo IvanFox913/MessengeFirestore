@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.edu.ifsp.dmo.messengefirestore.data.dao.UserDao
 import br.edu.ifsp.dmo.messengefirestore.data.model.Conversation
@@ -44,6 +45,9 @@ class HomeActivity : AppCompatActivity(), ConversationItemClickListener {
         if(intent.hasExtra(Constants.USER_PHONE_NUMBER)){
             userNumber = intent.getStringExtra(Constants.USER_PHONE_NUMBER)!!
         }
+
+        val factory = HomeViewModelFactory(userRepo, userNumber)
+        viewModel = ViewModelProvider(this, factory).get(HomeViewModel::class.java)
 
         configClickListener()
         setupRecyclerView()

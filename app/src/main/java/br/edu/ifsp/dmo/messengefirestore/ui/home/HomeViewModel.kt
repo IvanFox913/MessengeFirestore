@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import br.edu.ifsp.dmo.messengefirestore.data.model.Conversation
 import br.edu.ifsp.dmo.messengefirestore.data.repositories.UserRepo
 
-class HomeViewModel(private val repository: UserRepo) : ViewModel() {
+class HomeViewModel(private val repository: UserRepo, private val userNumber: String) : ViewModel() {
 
     private val _conversations = MutableLiveData<List<String>>()
     val conversations: LiveData<List<String>> = _conversations
@@ -16,7 +16,7 @@ class HomeViewModel(private val repository: UserRepo) : ViewModel() {
     }
 
     fun loadConversations() {
-        repository.findAllConversations { list ->
+        repository.findAllConversations(userNumber) { list ->
             _conversations.value = list
         }
     }
