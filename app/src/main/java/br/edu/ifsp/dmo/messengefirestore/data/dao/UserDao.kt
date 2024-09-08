@@ -25,11 +25,14 @@ class UserDao (private val firestore: FirebaseFirestore) {
             biggerNumber = senderNumber
         }
 
-        val conversation = Conversation(biggerNumber, smallerNumber)
+        val conversationId : String = (smallerNumber + biggerNumber)
 
-        firestore.collection("conversations").document(smallerNumber+biggerNumber).set(conversation)
-            .addOnSuccessListener { callback(true) }
-            .addOnFailureListener { callback(false) }
+        firestore.collection("users")
+            .document(senderNumber).collection("userConversations")
+            .document(receiverNumber).set(mapOf("conversationId" to conversationId))
+                .addOnSuccessListener { callback(true) }
+                .addOnFailureListener { callback(false) }
+
     }
 
     /*
