@@ -12,10 +12,11 @@ import br.edu.ifsp.dmo.messengefirestore.data.model.User
 import br.edu.ifsp.dmo.messengefirestore.data.repositories.UserRepo
 import br.edu.ifsp.dmo.messengefirestore.databinding.ActivityHomeBinding
 import br.edu.ifsp.dmo.messengefirestore.databinding.AddConversationDialogBinding
+import br.edu.ifsp.dmo.messengefirestore.ui.listeners.ConversationItemClickListener
 import br.edu.ifsp.dmo.messengefirestore.util.Constants
 import com.google.firebase.firestore.FirebaseFirestore
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), ConversationItemClickListener {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var viewModel: HomeViewModel
@@ -77,5 +78,11 @@ class HomeActivity : AppCompatActivity() {
                     dialog.cancel()
                 })
         builderDialog.create().show()
+    }
+
+    override fun clickOpenConversation(contactNumber: String) {
+        val mIntent = Intent(this, ConversationActivity::class.java)
+        mIntent.putExtra(Constants.CONTACT_PHONE_NUMBER, contactNumber)
+        startActivity(mIntent)
     }
 }
