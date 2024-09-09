@@ -22,4 +22,8 @@ class UserRepo (private val userDao: UserDao){
         userDao.findAllMessages(conversationId, callback)
     }
 
+    fun sendMessage(conversationId: String, message: Message){
+        userDao.sendMessage(conversationId, message)
+    }
+
 }

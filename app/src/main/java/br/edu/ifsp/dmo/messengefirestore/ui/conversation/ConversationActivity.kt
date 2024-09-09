@@ -2,6 +2,7 @@ package br.edu.ifsp.dmo.messengefirestore.ui.conversation
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,16 +12,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.edu.ifsp.dmo.messengefirestore.R
 import br.edu.ifsp.dmo.messengefirestore.data.dao.UserDao
+import br.edu.ifsp.dmo.messengefirestore.data.model.Message
+import br.edu.ifsp.dmo.messengefirestore.data.model.User
 import br.edu.ifsp.dmo.messengefirestore.data.repositories.UserRepo
 import br.edu.ifsp.dmo.messengefirestore.databinding.ActivityConversationBinding
 import br.edu.ifsp.dmo.messengefirestore.databinding.ActivityHomeBinding
 import br.edu.ifsp.dmo.messengefirestore.ui.adapter.ConversationItemAdapter
 import br.edu.ifsp.dmo.messengefirestore.ui.adapter.MessageItemAdapter
+import br.edu.ifsp.dmo.messengefirestore.ui.home.HomeActivity
 import br.edu.ifsp.dmo.messengefirestore.ui.home.HomeViewModel
 import br.edu.ifsp.dmo.messengefirestore.ui.home.HomeViewModelFactory
 import br.edu.ifsp.dmo.messengefirestore.util.Constants
 import com.google.firebase.firestore.FirebaseFirestore
 import java.math.BigInteger
+import java.time.LocalDateTime
 import java.util.Date
 
 class ConversationActivity : AppCompatActivity() {
@@ -30,6 +35,7 @@ class ConversationActivity : AppCompatActivity() {
     private lateinit var userRepo: UserRepo
     private lateinit var userNumber: String
     private lateinit var contactNumber: String
+    private lateinit var conversationId: String
 
     private val adapter = MessageItemAdapter()
 
@@ -48,13 +54,13 @@ class ConversationActivity : AppCompatActivity() {
             contactNumber = intent.getStringExtra(Constants.CONTACT_PHONE_NUMBER)!!
         }
 
-        val conversationId = numberSortSmaller(userNumber, contactNumber)
+        conversationId = numberSortSmaller(userNumber, contactNumber)
 
         val factory = ConversationViewModelFactory(userRepo, conversationId)
         viewModel = ViewModelProvider(this, factory).get(ConversationViewModel::class.java)
 
         setupUi()
-        //configClickListener()
+        setupListeners()
         setupRecyclerView()
         setupObservers()
     }
@@ -72,6 +78,18 @@ class ConversationActivity : AppCompatActivity() {
         viewModel.messages.observe(this, Observer {
             adapter.submitDataset(it)
         })
+    }
+
+    private fun setupListeners() {
+        binding.buttonMessageSend.setOnClickListener{
+            val message = Message(
+                userNumber,
+                Date(),
+                binding.edittextMenssageSend.text.toString()
+            )
+            userRepo.sendMessage(conversationId, message)
+            binding.edittextMenssageSend.text.clear()
+        }
     }
 
     private fun numberSortSmaller(number: String, number2: String): String {

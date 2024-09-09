@@ -1,14 +1,16 @@
 package br.edu.ifsp.dmo.messengefirestore.data.dao
 
 import android.util.Log
-import br.edu.ifsp.dmo.messengefirestore.data.model.Conversation
 import br.edu.ifsp.dmo.messengefirestore.data.model.Message
 import br.edu.ifsp.dmo.messengefirestore.data.model.User
 import com.google.firebase.firestore.FirebaseFirestore
 import java.math.BigInteger
-import java.time.LocalDate
+import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.ZoneOffset
+import java.util.Date
+
 
 class UserDao (private val firestore: FirebaseFirestore) {
 
@@ -64,7 +66,7 @@ class UserDao (private val firestore: FirebaseFirestore) {
         firestore.collection("conversations")
             .document(conversationId)
             .collection("messages")
-            .orderBy("date")
+            .orderBy("time")
             .addSnapshotListener { querySnapshot, exception ->
                 if (exception != null) {
                     Log.e("firebase", "Listen failed.", exception)
@@ -74,7 +76,7 @@ class UserDao (private val firestore: FirebaseFirestore) {
                 if (querySnapshot != null) {
                     val messages = querySnapshot.documents.mapNotNull { document ->
                         val sender = document.getString("sender")
-                        val time = document.getTimestamp("date")?.toDate()?.let { LocalDateTime.ofInstant(it.toInstant(), ZoneId.systemDefault()) }
+                        val time = document.getTimestamp("time")?.toDate()
                         val messageText = document.getString("messageText")
 
                         if (sender != null && time != null && messageText != null) {
@@ -92,22 +94,12 @@ class UserDao (private val firestore: FirebaseFirestore) {
             }
     }
 
+    fun sendMessage(conversationId: String, message: Message){
 
-
-    /*
-    fun getUserByNumber(): User {
-        
+        firestore.collection("conversations")
+            .document(conversationId)
+            .collection("messages").document().set(message)
     }
-
-    fun insertMessage(message: Message): Boolean {
-        
-    }
-
-    fun getAllMessagesByConversation(conversation: Conversation): List<Message> {
-        
-    }
-
-     */
 
     private fun numberSortSmaller(number: String, number2: String): String {
         if(BigInteger(number) < BigInteger(number2)){

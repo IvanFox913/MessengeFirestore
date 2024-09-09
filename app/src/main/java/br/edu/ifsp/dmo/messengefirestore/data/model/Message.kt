@@ -1,7 +1,7 @@
 package br.edu.ifsp.dmo.messengefirestore.data.model
 
-import java.time.LocalDateTime
+import java.util.Date
 
-class Message (val sender: String, val time: LocalDateTime, val messageText: String){
+class Message (val sender: String, val time: Date, val messageText: String){
 
 }
