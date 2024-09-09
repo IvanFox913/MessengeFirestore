@@ -5,4 +5,6 @@
     <color name="orange">#FF5722</color>
     <color name="grey_ugly">#5A5858</color>
     <color name="golden">#F3B848</color>
+    <color name="transluscent_light_blue">#8369B7EC</color>
+    <color name="transluscent_light_green">#8377DC9F</color>
 </resources>

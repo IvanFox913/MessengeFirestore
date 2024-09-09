@@ -8,7 +8,7 @@ import br.edu.ifsp.dmo.messengefirestore.R
 import br.edu.ifsp.dmo.messengefirestore.data.model.Message
 import br.edu.ifsp.dmo.messengefirestore.databinding.ItemMessageBinding
 
-class MessageItemAdapter: RecyclerView.Adapter<MessageItemAdapter.ViewHolder>() {
+class MessageItemAdapter(val userNumber: String): RecyclerView.Adapter<MessageItemAdapter.ViewHolder>() {
 
     private var dataset: List<Message> = emptyList()
 
@@ -21,6 +21,13 @@ class MessageItemAdapter: RecyclerView.Adapter<MessageItemAdapter.ViewHolder>() 
 
         holder.binding.textviewMessageText.text = dataset[position].messageText
         holder.binding.textviewMessageTime.text = dataset[position].time.toString()
+        if (dataset[position].sender == userNumber){
+            val resolvedColor = holder.itemView.resources.getColor(R.color.transluscent_light_blue, null)
+            holder.binding.recyclerviewItemContainer.setBackgroundColor(resolvedColor)
+        } else {
+            val resolvedColor = holder.itemView.resources.getColor(R.color.transluscent_light_green, null)
+            holder.binding.recyclerviewItemContainer.setBackgroundColor(resolvedColor)
+        }
 
     }
 

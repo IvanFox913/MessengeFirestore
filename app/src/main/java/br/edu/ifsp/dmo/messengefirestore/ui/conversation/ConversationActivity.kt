@@ -36,8 +36,7 @@ class ConversationActivity : AppCompatActivity() {
     private lateinit var userNumber: String
     private lateinit var contactNumber: String
     private lateinit var conversationId: String
-
-    private val adapter = MessageItemAdapter()
+    private lateinit var adapter: MessageItemAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +52,8 @@ class ConversationActivity : AppCompatActivity() {
             userNumber = intent.getStringExtra(Constants.USER_PHONE_NUMBER)!!
             contactNumber = intent.getStringExtra(Constants.CONTACT_PHONE_NUMBER)!!
         }
+
+        adapter = MessageItemAdapter(userNumber)
 
         conversationId = numberSortSmaller(userNumber, contactNumber)
 
