@@ -28,6 +28,10 @@ class UserDao (private val firestore: FirebaseFirestore) {
         val conversationId : String = (smallerNumber + biggerNumber)
 
         firestore.collection("users")
+            .document(receiverNumber).collection("userConversations")
+            .document(senderNumber).set(mapOf("conversationId" to conversationId))
+
+        firestore.collection("users")
             .document(senderNumber).collection("userConversations")
             .document(receiverNumber).set(mapOf("conversationId" to conversationId))
                 .addOnSuccessListener { callback(true) }
