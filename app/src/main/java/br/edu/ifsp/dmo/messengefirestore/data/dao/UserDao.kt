@@ -6,6 +6,9 @@ import br.edu.ifsp.dmo.messengefirestore.data.model.Message
 import br.edu.ifsp.dmo.messengefirestore.data.model.User
 import com.google.firebase.firestore.FirebaseFirestore
 import java.math.BigInteger
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 class UserDao (private val firestore: FirebaseFirestore) {
 
@@ -55,6 +58,41 @@ class UserDao (private val firestore: FirebaseFirestore) {
                 }
             }
     }
+
+    fun findAllMessages(conversationId: String, callback: (List<Message>) -> Unit) {
+
+        firestore.collection("conversations")
+            .document(conversationId)
+            .collection("messages")
+            .orderBy("date")
+            .addSnapshotListener { querySnapshot, exception ->
+                if (exception != null) {
+                    Log.e("firebase", "Listen failed.", exception)
+                    callback(emptyList())
+                    return@addSnapshotListener
+                }
+                if (querySnapshot != null) {
+                    val messages = querySnapshot.documents.mapNotNull { document ->
+                        val sender = document.getString("sender")
+                        val time = document.getTimestamp("date")?.toDate()?.let { LocalDateTime.ofInstant(it.toInstant(), ZoneId.systemDefault()) }
+                        val messageText = document.getString("messageText")
+
+                        if (sender != null && time != null && messageText != null) {
+                            Message(sender, time, messageText)
+                        } else {
+                            Log.w("firebase", "Incomplete message data: ${document.id}")
+                            null
+                        }
+                    }
+                    callback(messages)
+                } else {
+                    Log.e("firebase", "Empty messages list.")
+                    callback(emptyList())
+                }
+            }
+    }
+
+
 
     /*
     fun getUserByNumber(): User {

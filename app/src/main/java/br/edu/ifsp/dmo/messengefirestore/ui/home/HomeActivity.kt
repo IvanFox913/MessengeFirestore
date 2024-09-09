@@ -91,6 +91,7 @@ class HomeActivity : AppCompatActivity(), ConversationItemClickListener {
 
     override fun clickOpenConversation(contactNumber: String) {
         val mIntent = Intent(this, ConversationActivity::class.java)
+        mIntent.putExtra(Constants.USER_PHONE_NUMBER, userNumber)
         mIntent.putExtra(Constants.CONTACT_PHONE_NUMBER, contactNumber)
         startActivity(mIntent)
     }
