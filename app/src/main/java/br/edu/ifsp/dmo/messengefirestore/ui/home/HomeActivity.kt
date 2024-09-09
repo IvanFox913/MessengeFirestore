@@ -11,12 +11,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.edu.ifsp.dmo.messengefirestore.data.dao.UserDao
-import br.edu.ifsp.dmo.messengefirestore.data.model.Conversation
-import br.edu.ifsp.dmo.messengefirestore.data.model.User
 import br.edu.ifsp.dmo.messengefirestore.data.repositories.UserRepo
 import br.edu.ifsp.dmo.messengefirestore.databinding.ActivityHomeBinding
 import br.edu.ifsp.dmo.messengefirestore.databinding.AddConversationDialogBinding
-import br.edu.ifsp.dmo.messengefirestore.ui.adapter.ConversationAdapter
+import br.edu.ifsp.dmo.messengefirestore.ui.adapter.ConversationItemAdapter
 import br.edu.ifsp.dmo.messengefirestore.ui.conversation.ConversationActivity
 import br.edu.ifsp.dmo.messengefirestore.ui.listeners.ConversationItemClickListener
 import br.edu.ifsp.dmo.messengefirestore.util.Constants
@@ -29,7 +27,7 @@ class HomeActivity : AppCompatActivity(), ConversationItemClickListener {
     private lateinit var userRepo: UserRepo
     private lateinit var userNumber: String
 
-    private val adapter = ConversationAdapter(this)
+    private val adapter = ConversationItemAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

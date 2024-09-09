@@ -16,7 +16,7 @@
             android:name=".ui.conversation.ConversationActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.adapter.ConversationAdapter"
+            android:name=".ui.adapter.ConversationItemAdapter"
             android:exported="false" />
         <activity
             android:name=".ui.home.HomeActivity"
