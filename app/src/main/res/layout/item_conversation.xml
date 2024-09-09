@@ -8,7 +8,7 @@
         android:id="@+id/contact_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="55 (16) 9 99887766"
+        android:text="@string/item_conversation_placeholder_telephone_number"
         android:textSize="30sp"
         android:layout_margin="30dp"
         app:layout_constraintTop_toTopOf="parent"

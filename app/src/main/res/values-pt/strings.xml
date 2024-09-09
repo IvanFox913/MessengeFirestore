@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Messenge Firestore</string>
+
+    <string name="activity_main_welcome">Bem Vindo!</string>
+    <string name="activity_main_login_info">Por favor insira seu número de telefone abaixo e pressione o botão Continuar.</string>
+    <string name="activity_main_button_login">Continuar</string>
+
+    <string name="activity_home_title">Conversas</string>
+
+    <string name="dialog_add_conversation_info">Insira o número de telefone de quem você quer conversar:</string>
+    <string name="dialog_add_conversation_hint">55 16 9 0000 0000</string>
+
+    <string name="activity_conversation_title">número do contato</string>
+    <string name="activity_conversation_message_hint">Escreva sua mensagem...</string>
+
+
+
+    <string name="item_conversation_placeholder_telephone_number">55 (16) 9 99887766</string>
+    <string name="item_message_placeholder_message">placeholder</string>
+    <string name="item_message_placeholder_date_time">00:00 01/01/2000</string>
+</resources>

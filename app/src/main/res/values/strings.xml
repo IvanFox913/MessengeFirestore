@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Messenge Firestore</string>
+
+    <string name="activity_main_welcome">Welcome!</string>
+    <string name="activity_main_login_info">Please insert your cellphone number bellow and press the Continue button.</string>
+    <string name="activity_main_button_login">Continue</string>
+
+    <string name="activity_home_title">Chats</string>
+
+    <string name="dialog_add_conversation_info">Insert the number of who you want to chat with:</string>
+    <string name="dialog_add_conversation_hint">55 16 9 0000 0000</string>
+
+    <string name="activity_conversation_title">contact number</string>
+    <string name="activity_conversation_message_hint">Write your message...</string>
+
+
+
+    <string name="item_conversation_placeholder_telephone_number">55 (16) 9 99887766</string>
+    <string name="item_message_placeholder_message">placeholder</string>
+    <string name="item_message_placeholder_date_time">00:00 01/01/2000</string>
+
 </resources>
