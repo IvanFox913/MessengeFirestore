@@ -5,12 +5,6 @@ import br.edu.ifsp.dmo.messengefirestore.data.model.Message
 import br.edu.ifsp.dmo.messengefirestore.data.model.User
 import com.google.firebase.firestore.FirebaseFirestore
 import java.math.BigInteger
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZoneOffset
-import java.util.Date
-
 
 class UserDao (private val firestore: FirebaseFirestore) {
 
